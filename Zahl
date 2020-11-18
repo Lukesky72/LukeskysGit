@@ -1,0 +1,127 @@
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+public class Zahl extends JFrame implements FocusListener, ActionListener {
+
+    private JPanel contentPane;
+    private JTextField textField;
+    private JLabel jlabAnzahlGeradeLabel;
+    private JLabel jlabAnzahlUngeradeLabel;
+    private JLabel jlabGeradeZahl;
+    private JLabel jLabUngeradeZahl;
+
+
+    public static void main(String[] args) {
+
+	Zahl frame = new Zahl();
+	frame.setVisible(true);
+    }
+
+
+    public Zahl() {
+	buildFrame();
+	
+	
+    }
+
+    private void pruefeZahl() {
+	String zahl=new String();
+	zahl=textField.getText();
+	if(zahl !=null && Integer.parseInt(zahl)>0) {
+	    int geradeZahl=0;
+	    int ungeradeZahl=0;
+	    for (int x=0; x<zahl.length(); x++) {
+		if (zahl.charAt(x)%2>0){
+		    ungeradeZahl++;
+		}else {
+		    geradeZahl++;
+		}
+	    }
+	    jlabGeradeZahl.setText(""+geradeZahl);
+	    jLabUngeradeZahl.setText(""+ungeradeZahl);
+	}
+	
+    }
+    
+
+
+    private void buildFrame() {
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setBounds(100, 100, 450, 300);
+	contentPane = new JPanel();
+	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	setContentPane(contentPane);
+	contentPane.setLayout(null);
+
+	JLabel jlabHeadline = new JLabel("Ermittelt die Anzahl gerader und ungerader Ziffern einer Zahl");
+	jlabHeadline.setHorizontalAlignment(SwingConstants.CENTER);
+	jlabHeadline.setFont(new Font("Arial", Font.PLAIN, 12));
+	jlabHeadline.setBounds(22, 11, 384, 68);
+	contentPane.add(jlabHeadline);
+
+	JLabel jlabZahl = new JLabel("Zahl:");
+	jlabZahl.setFont(new Font("Arial", Font.PLAIN, 12));
+	jlabZahl.setBounds(10, 90, 252, 36);
+	contentPane.add(jlabZahl);
+
+	textField = new JTextField();
+	textField.addFocusListener(this);
+	textField.setFont(new Font("Arial", Font.PLAIN, 12));
+	textField.setBounds(299, 90, 125, 28);
+	contentPane.add(textField);
+	textField.setColumns(10);
+
+	jlabAnzahlGeradeLabel = new JLabel("Anzahl gerader Ziffern:");
+	jlabAnzahlGeradeLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+	jlabAnzahlGeradeLabel.setBounds(10, 137, 252, 36);
+	contentPane.add(jlabAnzahlGeradeLabel);
+
+	jlabAnzahlUngeradeLabel = new JLabel("Anzahl ungerader Ziffern:");
+	jlabAnzahlUngeradeLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+	jlabAnzahlUngeradeLabel.setBounds(10, 184, 252, 36);
+	contentPane.add(jlabAnzahlUngeradeLabel);
+
+	jlabGeradeZahl = new JLabel("");
+	jlabGeradeZahl.setFont(new Font("Arial", Font.PLAIN, 12));
+	jlabGeradeZahl.setBounds(299, 137, 125, 36);
+	contentPane.add(jlabGeradeZahl);
+
+	jLabUngeradeZahl = new JLabel("");
+	jLabUngeradeZahl.setFont(new Font("Arial", Font.PLAIN, 12));
+	jLabUngeradeZahl.setBounds(299, 173, 125, 36);
+	contentPane.add(jLabUngeradeZahl);
+	
+	JButton jbtnPruefen = new JButton("Pr\u00FCfen");
+	jbtnPruefen.addActionListener(this);
+	jbtnPruefen.setFont(new Font("Arial", Font.BOLD, 12));
+	jbtnPruefen.setBounds(309, 220, 115, 30);
+	contentPane.add(jbtnPruefen);
+    }
+    
+    @Override
+    public void focusLost(FocusEvent e) {
+       pruefeZahl();
+    }
+    
+    @Override
+    public void focusGained(FocusEvent e) {
+		
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+	pruefeZahl();
+	
+    }
+}
